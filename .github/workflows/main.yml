@@ -15,13 +15,18 @@ jobs:
         with:
           name: code
           path: .
+      - name: Upload app directory
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-directory
+          path: src/
   Security:
     runs-on: ubuntu-latest
     steps:
-      - name: Download code
+      - name: Download app directory
         uses: actions/download-artifact@v3
         with:
-          name: code
+          name: app-directory
       - name: Run SNYK test
         uses: snyk/actions/python@master
         env:
