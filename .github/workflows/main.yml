@@ -2,31 +2,31 @@ name: CI
 on: push
 
 env:
-  DOCKER_USERNAME: {{$(secrets.DOCKER_USERNAME)}}
-  DOCKER_PASSWORD: {{$(secrets.DOCKER_KEY)}}
+  DOCKER_USERNAME: ${{(secrets.DOCKER_USERNAME)}}
+  DOCKER_PASSWORD: ${{(secrets.DOCKER_KEY)}}
 
 jobs:
   Clone-down:
-  runs-on: ubuntu-latest
-  steps:
-    uses: actions/checkout@v3
-    name: Upload repo
-    uses: actions/upload-artifact@v3
-    with:
-      name: code
-      path: .
-  Build and push container:
-  needs: Clone-down
-  runs-on: ubuntu-latest
-  steps:
-    name: Download code
-    uses: actions/download-artifact@v3
-    with:
-      name: code
-      path: .
-    name: Log in to DockerHub
-    run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-    name: Build Docker image
-    run: docker build -t $DOCKER_USERNAME/mdp-classwork-task-1:latest .
-    name: Push image to DockerHub
-    run: docker push $DOCKER_USERNAME/mdp-classwork-task-1:latest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Upload repo
+        uses: actions/upload-artifact@v3
+        with:
+          name: code
+          path: .
+  Docker-image:
+    needs: Clone-down
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+            name: code
+            path: .
+      - name: Build Docker image
+        run: docker build -t $DOCKER_USERNAME/mdp-classwork-task-1:latest .
+      - name: Log in to DockerHub
+        run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      - name: Push image to DockerHub
+        run: docker push $DOCKER_USERNAME/mdp-classwork-task-1:latest
