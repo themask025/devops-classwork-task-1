@@ -24,9 +24,9 @@ jobs:
     with:
       name: code
       path: .
-    name: Build Docker image
-    run: docker build -t python-app .
     name: Log in to DockerHub
     run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+    name: Build Docker image
+    run: docker build -t $DOCKER_USERNAME/mdp-classwork-task-1:latest .
     name: Push image to DockerHub
-    run: docker push evelinit/mdp-classwork-task-1:python-app
+    run: docker push $DOCKER_USERNAME/mdp-classwork-task-1:latest
