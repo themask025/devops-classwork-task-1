@@ -1,8 +1,8 @@
 # Setting the base image
-FROM ubuntu:latest
+FROM alpine:latest
 
-RUN apt update -y
-RUN apt install -y python3 python3-pip 
+RUN apk update
+RUN apk add python3 py3-pip python3-dev
 
 COPY . .
 
