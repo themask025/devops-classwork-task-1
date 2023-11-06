@@ -28,7 +28,11 @@ jobs:
         with:
           name: app-directory
       - name: Run SNYK test
-        uses: snyk/actions/python@master
+        run: |
+          pip3 install -r requirements.txt
+          npm install -g snyk
+          snyk auth SNYK_TOKEN
+          snyk test
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   Docker-image:
