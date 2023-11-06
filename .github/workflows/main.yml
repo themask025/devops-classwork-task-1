@@ -26,7 +26,6 @@ jobs:
         uses: snyk/actions/python@master
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        working-directory: src/
   Docker-image:
     needs: Clone-down
     runs-on: ubuntu-latest
