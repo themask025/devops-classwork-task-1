@@ -15,6 +15,18 @@ jobs:
         with:
           name: code
           path: .
+  Security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download code
+        uses: actions/download-artifact@v3
+        with:
+          name: code
+      - name: Run SNYK test
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        working-directory: src/
   Docker-image:
     needs: Clone-down
     runs-on: ubuntu-latest
