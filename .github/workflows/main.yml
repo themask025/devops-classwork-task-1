@@ -63,7 +63,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: '$DOCKER_USERNAME/mdp-classwork-task-1:latest'
+          image-ref: $DOCKER_USERNAME/mdp-classwork-task-1:latest
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
