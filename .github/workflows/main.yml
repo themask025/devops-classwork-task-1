@@ -60,6 +60,15 @@ jobs:
             path: .
       - name: Build Docker image
         run: docker build -t $DOCKER_USERNAME/mdp-classwork-task-1:latest .
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '$DOCKER_USERNAME/mdp-classwork-task-1:latest'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
       - name: Log in to DockerHub
         run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       - name: Push image to DockerHub
