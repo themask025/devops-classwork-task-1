@@ -41,7 +41,7 @@ jobs:
     needs: Clone-down
     steps:
       - name: Download app directory
-        uses: actions/download-artifact
+        uses: actions/download-artifact@v3
         with:
           name: app-directory
       - name: Run test
