@@ -2,7 +2,9 @@
 FROM alpine:latest
 
 RUN apk update
-RUN apk add python3 py3-pip python3-dev libcrypto3 libssl3
+RUN apk add python3 py3-pip python3-dev
+RUN apk update
+RUN apk upgrade
 
 COPY . .
 
